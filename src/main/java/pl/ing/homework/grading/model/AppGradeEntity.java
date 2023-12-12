@@ -1,6 +1,8 @@
 package pl.ing.homework.grading.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.time.LocalDate;
@@ -9,7 +11,9 @@ import java.util.UUID;
 @Entity
 public class AppGradeEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    private UUID appId;
     private String name;
     private Double rating;
     private Integer reviewerAge;
@@ -26,6 +30,14 @@ public class AppGradeEntity {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public UUID getAppId() {
+        return appId;
+    }
+
+    public void setAppId(UUID appId) {
+        this.appId = appId;
     }
 
     public String getName() {

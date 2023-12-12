@@ -4,5 +4,5 @@ import java.util.UUID;
 
 public interface TopAppGradeDto {
     String getName();
-    UUID getId();
+    UUID getAppId();
 }

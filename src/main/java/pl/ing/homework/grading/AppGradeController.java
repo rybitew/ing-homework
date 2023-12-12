@@ -21,7 +21,7 @@ public class AppGradeController {
 
     @GetMapping("/{appUuid}/avg")
     public ResponseEntity<Double> getAverageBetweenDates(
-            @PathVariable("appUuid")UUID appId,
+            @PathVariable("appUuid") UUID appId,
             @RequestParam("since") @DateTimeFormat(pattern = "yyyyMMdd") LocalDate since,
             @RequestParam("until") @DateTimeFormat(pattern = "yyyyMMdd") LocalDate until
     ) {
@@ -36,5 +36,4 @@ public class AppGradeController {
     ) {
         return ResponseEntity.ok(appGradeService.getTop100InAgeGroup(ageGroup, since, until));
     }
-
 }

@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -41,7 +40,6 @@ public class DataImportService {
     //    @Scheduled(cron = "* 1 20 * * *")
     @Scheduled(fixedRate = 2, timeUnit = TimeUnit.MINUTES)
     public void importData() {
-        String date = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
         File[] dataFiles = new File(pathToDirectory).listFiles();
         if (dataFiles == null) {
             System.err.println("Wystąpił błąd w dostępie do folderu z danymi: " + pathToDirectory);
@@ -51,32 +49,18 @@ public class DataImportService {
         Arrays.stream(dataFiles)
                 .filter(file -> !processedDates.contains(extractDateFromName(file)))
                 .forEach(file -> {
+                    LocalDate fileDate = extractDateFromName(file);
                     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                        reader.readLine();
                         List<AppGradeEntity> entities = reader.lines().skip(1)
-                                .map(line -> mapToEntity(line, extractDateFromName(file)))
+                                .map(line -> mapToEntity(line, fileDate))
                                 .toList();
 
                         repository.saveAll(entities);
+                        System.out.println("Zaimportowano plik z dnia " + fileDate);
                     } catch (IOException e) {
-                        System.err.println("Błąd podczas przetwarzania pliku z dnia " + date);
+                        System.err.println("Błąd podczas przetwarzania pliku z dnia " + file);
                     }
                 });
-//        File file = new File(pathToDirectory + "/" + FILENAME_TEMPLATE.replace("{DATE}", date));
-//
-//        if (!file.exists()) {
-//            System.err.println("Brak pliku dla dnia " + date);
-//            return;
-//        }
-//
-//        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-//            reader.readLine();
-//            List<AppGradeEntity> entities = reader.lines().skip(1).map(this::mapToEntity).toList();
-//
-//            repository.saveAll(entities);
-//        } catch (IOException e) {
-//            System.err.println("Błąd podczas przetwarzania pliku z dnia " + date);
-//        }
     }
 
     private LocalDate extractDateFromName(File file) {
@@ -90,7 +74,7 @@ public class DataImportService {
         String[] cols = line.split(",");
         AppGradeEntity entity = new AppGradeEntity();
         entity.setName(cols[APP_NAME]);
-        entity.setId(UUID.fromString(cols[APP_UUID]));
+        entity.setAppId(UUID.fromString(cols[APP_UUID]));
         entity.setRating(Double.parseDouble(cols[RATING]));
         entity.setReviewerAge(Integer.parseInt(cols[REVIEWER_AGE]));
         entity.setReviewerCountry(cols[REVIEWER_COUNTRY]);
