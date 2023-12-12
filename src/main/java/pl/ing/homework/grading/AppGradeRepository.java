@@ -2,14 +2,12 @@ package pl.ing.homework.grading;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 import pl.ing.homework.grading.model.AppGradeEntity;
 import pl.ing.homework.grading.model.MonthlyAppRating;
 import pl.ing.homework.grading.model.TopAppGradeDto;
 
 import java.time.LocalDate;
-import java.time.YearMonth;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;

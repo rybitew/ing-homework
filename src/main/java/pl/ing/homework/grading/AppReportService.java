@@ -22,7 +22,7 @@ public class AppReportService {
         this.repository = repository;
     }
 
-    //    @Scheduled(cron = "* 5 20 L * *")
+    //    @Scheduled(cron = "0 5 20 L * *")
     @Scheduled(fixedRate = 120, timeUnit = TimeUnit.MINUTES, initialDelay = 1)
     public void generateAppReports() {
 //        YearMonth date = YearMonth.now();

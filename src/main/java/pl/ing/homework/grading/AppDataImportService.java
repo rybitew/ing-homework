@@ -19,8 +19,6 @@ import java.util.regex.Pattern;
 
 @Service
 public class AppDataImportService {
-    private static final String FILENAME_TEMPLATE = "app_rating-{DATE}.csv";
-
     private static final int APP_NAME = 0;
     private static final int APP_UUID = 1;
     private static final int RATING = 2;
@@ -37,7 +35,7 @@ public class AppDataImportService {
         this.repository = repository;
     }
 
-    //    @Scheduled(cron = "* 1 20 * * *")
+    //    @Scheduled(cron = "0 1 20 * * *")
     @Scheduled(fixedRate = 2, timeUnit = TimeUnit.MINUTES)
     public void importData() {
         File[] dataFiles = new File(pathToDirectory).listFiles();
