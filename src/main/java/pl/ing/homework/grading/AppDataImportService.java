@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 @Service
-public class DataImportService {
+public class AppDataImportService {
     private static final String FILENAME_TEMPLATE = "app_rating-{DATE}.csv";
 
     private static final int APP_NAME = 0;
@@ -33,7 +33,7 @@ public class DataImportService {
     private static final Pattern p = Pattern.compile("^([a-zA-Z]+)([0-9]+)(.*)");
 
 
-    public DataImportService(AppGradeRepository repository) {
+    public AppDataImportService(AppGradeRepository repository) {
         this.repository = repository;
     }
 
@@ -42,8 +42,7 @@ public class DataImportService {
     public void importData() {
         File[] dataFiles = new File(pathToDirectory).listFiles();
         if (dataFiles == null) {
-            System.err.println("Wystąpił błąd w dostępie do folderu z danymi: " + pathToDirectory);
-            return;
+            throw new RuntimeException("Wystąpił błąd w dostępie do folderu z danymi: " + pathToDirectory);
         }
         Set<LocalDate> processedDates = repository.findAllImportedDates();
         Arrays.stream(dataFiles)
@@ -58,7 +57,7 @@ public class DataImportService {
                         repository.saveAll(entities);
                         System.out.println("Zaimportowano plik z dnia " + fileDate);
                     } catch (IOException e) {
-                        System.err.println("Błąd podczas przetwarzania pliku z dnia " + file);
+                        throw new RuntimeException("Błąd podczas przetwarzania pliku z dnia " + file);
                     }
                 });
     }

@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Repository
 public interface AppGradeRepository extends CrudRepository<AppGradeEntity, UUID> {
-    @Query("select avg(a.rating) from AppGradeEntity a where a.appId = ?1 and a.createDate between ?2 and ?3")
+    @Query("select round(avg(a.rating), 1) from AppGradeEntity a where a.appId = ?1 and a.createDate between ?2 and ?3")
     Double findAverageBetweenDates(UUID appId, LocalDate since, LocalDate until);
 
     @Query("select a.name as name, a.appId as appId from AppGradeEntity a " +
@@ -36,8 +36,8 @@ public interface AppGradeRepository extends CrudRepository<AppGradeEntity, UUID>
     Set<LocalDate> findAllImportedDates();
 
     @Query("""
-            select a.name as appName, a.appId as appId, avg(a.rating) as ratingThisMonth,
-                old.oldAvg as ratingPreviousMonth
+            select a.name as appName, a.appId as appId, round(avg(a.rating), 1) as ratingThisMonth,
+                round(old.oldAvg, 1) as ratingPreviousMonth
             from AppGradeEntity a join (
                 select b.appId as appId, avg(b.rating) as oldAvg
                 from AppGradeEntity b
@@ -53,8 +53,8 @@ public interface AppGradeRepository extends CrudRepository<AppGradeEntity, UUID>
     List<MonthlyAppRating> findTopTrendingByMonth(Integer year, Integer month);
 
     @Query("""
-            select a.name as appName, a.appId as appId, avg(a.rating) as ratingThisMonth,
-                old.oldAvg as ratingPreviousMonth
+            select a.name as appName, a.appId as appId, round(avg(a.rating), 1) as ratingThisMonth,
+                round(old.oldAvg, 1) as ratingPreviousMonth
             from AppGradeEntity a join (
                 select b.appId as appId, avg(b.rating) as oldAvg
                 from AppGradeEntity b
@@ -65,7 +65,6 @@ public interface AppGradeRepository extends CrudRepository<AppGradeEntity, UUID>
             group by a.appId, a.name, oldAvg
             having (oldAvg - avg(a.rating)) >= 0.3
             order by oldAvg - avg(a.rating) desc
-            limit 100
             """)
     List<MonthlyAppRating> findDecliningAppsByMonth(Integer year, Integer month);
 }

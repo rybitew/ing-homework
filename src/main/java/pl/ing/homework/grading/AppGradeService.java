@@ -10,19 +10,19 @@ import java.util.UUID;
 
 @Service
 public class AppGradeService {
-    private final AppGradeRepository appGradeRepository;
+    private final AppGradeRepository repository;
 
-    public AppGradeService(AppGradeRepository appGradeRepository) {
-        this.appGradeRepository = appGradeRepository;
+    public AppGradeService(AppGradeRepository repository) {
+        this.repository = repository;
     }
 
     public Double getAverage(UUID appId, LocalDate since, LocalDate until) {
-        return appGradeRepository.findAverageBetweenDates(appId, since, until);
+        return repository.findAverageBetweenDates(appId, since, until);
     }
 
     public List<TopAppGradeDto> getTop100InAgeGroup(AgeGroup ageGroup, LocalDate since, LocalDate until) {
         if (!AgeGroup.AGE_GROUP_7.equals(ageGroup))
-            return appGradeRepository.findByAgeGroupBetweenDates(ageGroup.floor(), ageGroup.ceiling(), since, until);
-        return appGradeRepository.findByOlderThanAgeBetweenDates(ageGroup.floor(), since, until);
+            return repository.findByAgeGroupBetweenDates(ageGroup.floor(), ageGroup.ceiling(), since, until);
+        return repository.findByOlderThanAgeBetweenDates(ageGroup.floor(), since, until);
     }
 }
