@@ -1,0 +1,37 @@
+app_name,app_uuid,rating,reviewer_age,reviewer_country
+SciCalc,9ed0a148-731b-46c9-a01d-cdd29a931cd1,2.1,47,US
+SciCalc,9ed0a148-731b-46c9-a01d-cdd29a931cd1,2.2,28,PL
+Mobile Notepad,6ab3aa00-3c6a-11ee-be56-0242ac120002,2.8,34,CN
+Quickphoto,cc5e76ae-3c6a-11ee-be56-0242ac120002,4.7,19,US
+Magic Scanner,e73bb57c-3c6a-11ee-be56-0242ac120002,4,20,US
+SciCalc,9ed0a148-731b-46c9-a01d-cdd29a931cd1,1.5,18,US
+Mobile Notepad,6ab3aa00-3c6a-11ee-be56-0242ac120002,4.2,23,CN
+testoperation,9c564c5d-9544-4a03-b5b0-758fcafd20e3,3.3,68,US
+testingmill,f19a1ab2-32da-4562-9d15-899882be9bb9,4.6,54,PL
+testeveryday,d9a57b0e-8a81-4ed5-9582-17f47cdf555c,1.5,70,CN
+runatest,bac5d15d-7238-41f3-b3f8-9da3bcc01cd0,4.1,33,US
+tesy,e70a31b8-d5a9-4d55-bb02-9cf19b7dec51,1.6,71,US
+atopiq,d5ba5396-75d5-4aa9-8b2a-41a773c50b6a,4.8,45,US
+medicmatrix,fd71f096-6b67-467c-aee5-228cd029aca6,4.7,57,CN
+korsila,b71c3d90-f484-4e10-927e-eb1708ef3a5a,3.1,86,US
+labeza,31c351fe-1fac-4d2d-a0cc-8bb18b1821a4,1.7,25,PL
+majorbeta,e202239c-c4d5-4e3b-bb2e-ec14c56756e2,4.4,41,CN
+proviata,725a7b2d-cae3-4c65-8d19-a8fec6b5b189,1.8,62,US
+votoso,81058650-9160-420c-ac54-c5eb3962c92a,4.8,62,US
+grravity,a8eba785-51e3-450d-a518-08c399713032,4,89,US
+academiic,c693c695-7f9b-47c0-ac5a-5ccc7637078c,2.7,72,CN
+qirru,dbb9273b-6bb5-494c-bc77-742fa84101be,3.2,44,US
+akdoo,e1850626-16de-41a7-a1ad-cbb0dd4d9019,1.5,46,PL
+taxona,228e05da-829d-4dba-a8d7-db62fd857050,4.1,31,CN
+labraxo,5a5b4350-2f32-4486-ab07-b20af39600d9,3.1,21,US
+excelgenics,5a6aa407-c6b7-4381-ba04-a1c7d8175edb,1.4,87,US
+trialoffire,b1002afc-0b1e-4e86-9d19-7fe209882b4a,2.6,55,US
+salescanary,e0f6c6b9-ebc4-4800-a989-e753631400a1,3.9,53,CN
+geniusquotient,783ccab6-3d54-4f1f-9f0e-179c39b24f97,3.2,70,US
+puzzley,7f45d04e-bbe3-4282-93a5-c5e25a08d013,2.5,30,PL
+skilldrills,4c356b7c-ba5c-4787-b39c-73a45823e4f6,3.5,71,CN
+hatchsense,1cd5fba8-42b6-4c0f-b7e0-d3d222a67787,3,56,US
+factorbee,7cb0f6dd-1084-40b6-8b1d-e82a705fe040,2.9,51,US
+standardstudy,f85ea97f-efc4-4d47-b170-62be5436738a,1.6,67,US
+forgejet,989c993d-a06f-4c43-b3d9-a405e8bba29b,1.8,80,CN
+screenwise,d6ec4253-07ba-4b17-a57a-b49473cee8df,4.5,61,US

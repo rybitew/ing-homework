@@ -6,7 +6,13 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "APP_GRADE")
+@Table(
+        name = "APP_GRADE",
+        indexes = {
+                @Index(name = "appId_ix", columnList = "appId"),
+                @Index(name = "createDate_ix", columnList = "createDate")
+        }
+)
 public class AppGradeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

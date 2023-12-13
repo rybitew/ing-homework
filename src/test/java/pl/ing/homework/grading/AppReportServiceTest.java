@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
-import pl.ing.homework.grading.model.MonthlyAppRatingDto;
+import pl.ing.homework.grading.dto.MonthlyAppRatingDto;
 import pl.ing.homework.grading.model.MonthlyAppRatingImpl;
 
 import java.io.File;

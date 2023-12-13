@@ -1,6 +1,6 @@
 package pl.ing.homework.grading.util;
 
-import pl.ing.homework.grading.model.MonthlyAppRatingDto;
+import pl.ing.homework.grading.dto.MonthlyAppRatingDto;
 
 import java.io.BufferedReader;
 import java.io.File;

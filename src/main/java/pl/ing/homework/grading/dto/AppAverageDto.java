@@ -1,4 +1,4 @@
-package pl.ing.homework.grading.model;
+package pl.ing.homework.grading.dto;
 
 public class AppAverageDto {
     private Double average;

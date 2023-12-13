@@ -3,7 +3,7 @@ package pl.ing.homework.grading;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import pl.ing.homework.grading.model.MonthlyAppRatingDto;
+import pl.ing.homework.grading.dto.MonthlyAppRatingDto;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,17 +14,17 @@ import java.util.List;
 
 @Service
 class AppReportService {
+    private static final String HEADER = "app_name,app_uuid,rating_this_month,rating_previous_month\n";
     @Value("${export.dir}")
     private String outputPath;
-    private static final String HEADER = "app_name,app_uuid,rating_this_month,rating_previous_month\n";
     private final AppGradeRepository repository;
 
-    public AppReportService(AppGradeRepository repository) {
+    AppReportService(AppGradeRepository repository) {
         this.repository = repository;
     }
 
     @Scheduled(cron = "0 5 20 L * *")
-    public void generateAppReports() {
+    void generateAppReports() {
         YearMonth date = YearMonth.now();
         List<MonthlyAppRatingDto> topApps = repository.findTopTrendingByMonth(date.getYear(), date.getMonthValue());
         List<MonthlyAppRatingDto> decliningApps = repository.findDecliningAppsByMonth(date.getYear(), date.getMonthValue());

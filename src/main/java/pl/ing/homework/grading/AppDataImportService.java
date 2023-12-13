@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 @Service
@@ -24,20 +23,19 @@ class AppDataImportService {
     private static final int RATING = 2;
     private static final int REVIEWER_AGE = 3;
     private static final int REVIEWER_COUNTRY = 4;
+    private static final Pattern p = Pattern.compile("^([a-zA-Z]+)([0-9]+)(.*)");
 
     @Value("${import.dir}")
     private String pathToDirectory;
     private final AppGradeRepository repository;
-    private static final Pattern p = Pattern.compile("^([a-zA-Z]+)([0-9]+)(.*)");
 
 
-    public AppDataImportService(AppGradeRepository repository) {
+    AppDataImportService(AppGradeRepository repository) {
         this.repository = repository;
     }
 
-    //    @Scheduled(cron = "0 1 20 * * *")
-    @Scheduled(fixedRate = 2, timeUnit = TimeUnit.MINUTES)
-    public void importData() {
+    @Scheduled(cron = "0 1 20 * * *")
+    void importData() {
         File[] dataFiles = new File(pathToDirectory).listFiles();
         if (dataFiles == null) {
             throw new RuntimeException("Wystąpił błąd w dostępie do folderu z danymi: " + pathToDirectory);
@@ -55,7 +53,7 @@ class AppDataImportService {
                         repository.saveAll(entities);
                         System.out.println("Zaimportowano plik z dnia " + fileDate);
                     } catch (IOException e) {
-                        throw new RuntimeException("Błąd podczas przetwarzania pliku z dnia " + file);
+                        System.err.println("Błąd podczas przetwarzania pliku z dnia " + file);
                     }
                 });
     }

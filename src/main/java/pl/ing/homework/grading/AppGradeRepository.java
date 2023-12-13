@@ -1,12 +1,11 @@
 package pl.ing.homework.grading;
 
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
+import pl.ing.homework.grading.dto.MonthlyAppRatingDto;
+import pl.ing.homework.grading.dto.TopAppGradeDto;
 import pl.ing.homework.grading.model.AppGradeEntity;
-import pl.ing.homework.grading.model.MonthlyAppRatingDto;
-import pl.ing.homework.grading.model.TopAppGradeDto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,10 +17,13 @@ interface AppGradeRepository extends ListCrudRepository<AppGradeEntity, UUID> {
     @Query("select round(avg(a.rating), 1) from AppGradeEntity a where a.appId = ?1 and a.createDate between ?2 and ?3")
     Double findAverageBetweenDates(UUID appId, LocalDate since, LocalDate until);
 
-    @Query("select a.name as name, a.appId as appId from AppGradeEntity a " +
-            "where a.reviewerAge between ?1 and ?2 and a.createDate between ?3 and ?4 " +
-            "order by a.rating desc " +
-            "limit 100")
+    @Query("""
+            select a.name as name, a.appId as appId from AppGradeEntity a
+            where a.reviewerAge between ?1 and ?2 and a.createDate between ?3 and ?4
+            group by a.name, a.appId
+            order by avg(a.rating) desc
+            limit 100
+            """)
     List<TopAppGradeDto> findByAgeGroupBetweenDates(Integer ageFloor, Integer ageCeiling, LocalDate since,
                                                     LocalDate until);
 

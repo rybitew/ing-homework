@@ -1,5 +1,7 @@
 package pl.ing.homework.grading.model;
 
+import pl.ing.homework.grading.dto.MonthlyAppRatingDto;
+
 import java.util.UUID;
 
 public class MonthlyAppRatingImpl implements MonthlyAppRatingDto {

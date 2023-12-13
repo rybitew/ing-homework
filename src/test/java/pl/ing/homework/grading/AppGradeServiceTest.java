@@ -7,8 +7,8 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import pl.ing.homework.grading.dto.TopAppGradeDto;
 import pl.ing.homework.grading.model.AgeGroup;
-import pl.ing.homework.grading.model.TopAppGradeDto;
 import pl.ing.homework.grading.model.TopAppGradeImpl;
 
 import java.time.LocalDate;

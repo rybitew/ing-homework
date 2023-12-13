@@ -1,5 +1,7 @@
 package pl.ing.homework.grading.model;
 
+import pl.ing.homework.grading.dto.TopAppGradeDto;
+
 import java.util.Objects;
 import java.util.UUID;
 
