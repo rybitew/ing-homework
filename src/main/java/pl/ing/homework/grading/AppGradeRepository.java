@@ -2,9 +2,10 @@ package pl.ing.homework.grading;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 import pl.ing.homework.grading.model.AppGradeEntity;
-import pl.ing.homework.grading.model.MonthlyAppRating;
+import pl.ing.homework.grading.model.MonthlyAppRatingDto;
 import pl.ing.homework.grading.model.TopAppGradeDto;
 
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Repository
-public interface AppGradeRepository extends CrudRepository<AppGradeEntity, UUID> {
+interface AppGradeRepository extends ListCrudRepository<AppGradeEntity, UUID> {
     @Query("select round(avg(a.rating), 1) from AppGradeEntity a where a.appId = ?1 and a.createDate between ?2 and ?3")
     Double findAverageBetweenDates(UUID appId, LocalDate since, LocalDate until);
 
@@ -48,7 +49,7 @@ public interface AppGradeRepository extends CrudRepository<AppGradeEntity, UUID>
             order by avg(a.rating) - oldAvg desc
             limit 100
             """)
-    List<MonthlyAppRating> findTopTrendingByMonth(Integer year, Integer month);
+    List<MonthlyAppRatingDto> findTopTrendingByMonth(Integer year, Integer month);
 
     @Query("""
             select a.name as appName, a.appId as appId, round(avg(a.rating), 1) as ratingThisMonth,
@@ -64,5 +65,5 @@ public interface AppGradeRepository extends CrudRepository<AppGradeEntity, UUID>
             having (oldAvg - avg(a.rating)) >= 0.3
             order by oldAvg - avg(a.rating) desc
             """)
-    List<MonthlyAppRating> findDecliningAppsByMonth(Integer year, Integer month);
+    List<MonthlyAppRatingDto> findDecliningAppsByMonth(Integer year, Integer month);
 }

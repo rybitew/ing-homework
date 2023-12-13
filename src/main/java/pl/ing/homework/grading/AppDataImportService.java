@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 @Service
-public class AppDataImportService {
+class AppDataImportService {
     private static final int APP_NAME = 0;
     private static final int APP_UUID = 1;
     private static final int RATING = 2;

@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ing.homework.grading.model.AgeGroup;
+import pl.ing.homework.grading.model.AppAverageDto;
 import pl.ing.homework.grading.model.TopAppGradeDto;
 
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
-public class AppGradeController {
+class AppGradeController {
     private final AppGradeService appGradeService;
 
     public AppGradeController(AppGradeService appGradeService) {
@@ -20,12 +21,12 @@ public class AppGradeController {
     }
 
     @GetMapping("/{appUuid}/avg")
-    public ResponseEntity<Double> getAverageBetweenDates(
+    public ResponseEntity<AppAverageDto> getAverageBetweenDates(
             @PathVariable("appUuid") UUID appId,
             @RequestParam("since") @DateTimeFormat(pattern = "yyyyMMdd") LocalDate since,
             @RequestParam("until") @DateTimeFormat(pattern = "yyyyMMdd") LocalDate until
     ) {
-        return ResponseEntity.ok(appGradeService.getAverage(appId, since, until));
+        return ResponseEntity.ok(new AppAverageDto(appGradeService.getAverage(appId, since, until)));
     }
 
     @GetMapping("/top-apps/{ageGroup}")
