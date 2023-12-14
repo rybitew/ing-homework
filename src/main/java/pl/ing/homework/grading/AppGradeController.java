@@ -15,11 +15,8 @@ import java.util.UUID;
 @RequestMapping("/api")
 public class AppGradeController {
     private final AppGradeService appGradeService;
-    private final AppDataImportService appDataImportService;
-
-    public AppGradeController(AppGradeService appGradeService, AppDataImportService appDataImportService) {
+    public AppGradeController(AppGradeService appGradeService) {
         this.appGradeService = appGradeService;
-        this.appDataImportService = appDataImportService;
     }
 
     @GetMapping("/{appUuid}/avg")
@@ -38,11 +35,5 @@ public class AppGradeController {
             @RequestParam("until") @DateTimeFormat(pattern = "yyyyMMdd") LocalDate until
     ) {
         return ResponseEntity.ok(appGradeService.getTop100InAgeGroup(ageGroup, since, until));
-    }
-
-    @PostMapping("/util/force-import")
-    public ResponseEntity<Void> forceImport() {
-        appDataImportService.importData();
-        return ResponseEntity.ok().build();
     }
 }

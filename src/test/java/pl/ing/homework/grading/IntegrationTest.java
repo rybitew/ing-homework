@@ -49,7 +49,7 @@ class IntegrationTest {
     void setup() {
         RestAssured.port = port;
         await().untilAsserted(() ->
-                RestAssured.post("/api/util/force-import").then().statusCode(HttpStatus.OK.value())
+                RestAssured.post("/utils/force-import").then().statusCode(HttpStatus.OK.value())
         );
     }
 
