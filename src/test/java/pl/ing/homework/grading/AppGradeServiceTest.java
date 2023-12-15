@@ -67,16 +67,36 @@ class AppGradeServiceTest {
     }
 
     @Test
-    void shouldReturnData() {
+    void shouldReturnDataFromFindByAgeGroupBetweenDates() {
         List<TopAppGradeDto> result = List.of(
                 new TopAppGradeImpl().name("TestName1").appId(UUID.randomUUID()),
                 new TopAppGradeImpl().name("TestName2").appId(UUID.randomUUID()),
                 new TopAppGradeImpl().name("TestName3").appId(UUID.randomUUID())
         );
-        when(repository.findByAgeGroupBetweenDates(any(), any(), any(), any())).thenReturn(result);
+        when(repository.findByAgeGroupBetweenDates(
+                eq(AgeGroup.AGE_GROUP_1.floor()), eq(AgeGroup.AGE_GROUP_1.ceiling()), any(), any()
+        )).thenReturn(result);
 
         List<TopAppGradeDto> topAppGradeDtos = service
                 .getTop100InAgeGroup(AgeGroup.AGE_GROUP_1, LocalDate.now(), LocalDate.now().plusMonths(1));
+
+        assertEquals(3, topAppGradeDtos.size());
+        assertEquals(result, topAppGradeDtos);
+    }
+
+    @Test
+    void shouldReturnDataFromFindByOlderThanAgeBetweenDates() {
+        List<TopAppGradeDto> result = List.of(
+                new TopAppGradeImpl().name("TestName1").appId(UUID.randomUUID()),
+                new TopAppGradeImpl().name("TestName2").appId(UUID.randomUUID()),
+                new TopAppGradeImpl().name("TestName3").appId(UUID.randomUUID())
+        );
+        when(repository.findByOlderThanAgeBetweenDates(
+                eq(AgeGroup.AGE_GROUP_7.floor()), any(), any())
+        ).thenReturn(result);
+
+        List<TopAppGradeDto> topAppGradeDtos = service
+                .getTop100InAgeGroup(AgeGroup.AGE_GROUP_7, LocalDate.now(), LocalDate.now().plusMonths(1));
 
         assertEquals(3, topAppGradeDtos.size());
         assertEquals(result, topAppGradeDtos);

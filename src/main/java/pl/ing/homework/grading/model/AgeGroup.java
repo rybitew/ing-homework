@@ -9,9 +9,9 @@ public enum AgeGroup {
     AGE_GROUP_6(56,65),
     AGE_GROUP_7(65);
 
-    AgeGroup(int ceiling) {
-        this.floor = null;
-        this.ceiling = ceiling;
+    AgeGroup(int floor) {
+        this.floor = floor;
+        this.ceiling = null;
     }
     AgeGroup(int floor, int ceiling) {
         this.floor = floor;

@@ -27,10 +27,13 @@ interface AppGradeRepository extends ListCrudRepository<AppGradeEntity, UUID> {
     List<TopAppGradeDto> findByAgeGroupBetweenDates(Integer ageFloor, Integer ageCeiling, LocalDate since,
                                                     LocalDate until);
 
-    @Query("select a.name as name, a.appId as appId from AppGradeEntity a " +
-            "where a.reviewerAge > ?1 and a.createDate between ?2 and ?3 " +
-            "order by a.rating desc " +
-            "limit 100")
+    @Query("""
+            select a.name as name, a.appId as appId from AppGradeEntity a
+            where a.reviewerAge > ?1 and a.createDate between ?2 and ?3
+            group by a.name, a.appId
+            order by avg(a.rating) desc
+            limit 100
+            """)
     List<TopAppGradeDto> findByOlderThanAgeBetweenDates(Integer age, LocalDate since, LocalDate until);
 
     @Query("select distinct a.createDate from AppGradeEntity a")
